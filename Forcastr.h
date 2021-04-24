@@ -11,7 +11,7 @@ namespace Forcastr
 {
 	#define NULL	0
 
-	//Односвязный список
+	//РћРґРЅРѕСЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє
 	struct SLList
 	{
 		void* pNext;
@@ -22,14 +22,14 @@ namespace Forcastr
 		}
 	};
 
-	//Структура содержит исходные и предсказанные данные
+	//РЎС‚СЂСѓРєС‚СѓСЂР° СЃРѕРґРµСЂР¶РёС‚ РёСЃС…РѕРґРЅС‹Рµ Рё РїСЂРµРґСЃРєР°Р·Р°РЅРЅС‹Рµ РґР°РЅРЅС‹Рµ
 	struct DataPoint:SLList
 	{
-		//Абсцисса
+		//РђР±СЃС†РёСЃСЃР°
 		float fX;
-		//Ордината
+		//РћСЂРґРёРЅР°С‚Р°
 		float fY;
-		//Оригинальные ли данные?
+		//РЇРІР»СЏСЋС‚СЃСЏ Р»Рё РґР°РЅРЅС‹Рµ РѕСЂРёРіРёРЅР°Р»СЊРЅС‹РјРё
 		char bIsOriginal;
 
 		DataPoint(float fX, float fY, char bIsOriginal) : fX(fX), fY(fY), bIsOriginal(bIsOriginal)
@@ -38,23 +38,23 @@ namespace Forcastr
 		}
 	};
 
-	//Содержит данные о метрике
+	//Р”Р°РЅРЅС‹Рµ Рѕ РјРµС‚СЂРёРєРµ
 	struct Metrics:SLList
 	{
-		//Окно кандидата
+		//РћРєРЅРѕ РєР°РЅРґРёРґР°С‚Р°
 		float fLowerCandidateEdge;
 		float fMiddleCandidateEdge;
 		float fHigherCandidateEdge;
-		//Окно проекции
+		//РћРєРЅРѕ РїСЂРѕРµРєС†РёРё
 		float fLowerProjectionEdge;
 		float fHigherProjectionEdge;
-		//Весовой коэффициент
+		//Р’РµСЃРѕРІРѕР№ РєРѕСЌС„С„РёС†РёРµРЅС‚
 		float fWeight;
-		//Масштаб
+		//РњР°СЃС€С‚Р°Р±
 		float fScale;
-		//Матожидание по кандидату
+		//РњР°С‚РѕР¶РёРґР°РЅРёРµ РїРѕ РєР°РЅРґРёРґР°С‚Сѓ
 		float fCandidateMean;
-		//Матожидание по проекции
+		//РњР°С‚РѕР¶РёРґР°РЅРёРµ РїРѕ РїСЂРѕРµРєС†РёРё
 		float fProjectionMean;
 	};
 
@@ -63,43 +63,43 @@ namespace Forcastr
 	public:
 
 	private:
-		bool bIsForecasted;				//Была ли уже вызвана функция предсказания
-		DataPoint* pdpFirst;			//Первый элемент данных
-		DataPoint* pdpLast;				//Последний элемент данных
-		long lProjectionStepsCount;		//Шаг окна проекций
-		long lCandidateStepsCount;		//Шаг окна кандидата
-		long lMetricStepsCount;			//Шаг подсчёта метрики
-		Metrics* pmFirst;				//Первый элемент списка метрик
-		Metrics* pmLast;				//Последний элемент списка метрик
-		FILE* DebugPrint;				//Указатель на файл для дебага
+		bool bIsForecasted;				//С„Р»Р°Рі РІС‹Р·РѕРІР° С„СѓРЅРєС†РёРё РїСЂРµРґСЃРєР°Р·С‹РІР°РЅРёСЏ
+		DataPoint* pdpFirst;			//РџРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ РґР°РЅРЅС‹С…
+		DataPoint* pdpLast;				//РџРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚ РґР°РЅРЅС‹С…
+		long lProjectionStepsCount;		//РЁР°Рі РѕРєРЅР° РїСЂРѕРµРєС†РёРё
+		long lCandidateStepsCount;		//РЁР°Рі РѕРєРЅР° РєР°РЅРґРёРґР°С‚Р°
+		long lMetricStepsCount;			//РЁР°Рі РїРѕРґСЃС‡РµС‚Р° РјРµС‚СЂРёРєРё
+		Metrics* pmFirst;				//РџРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ СЃРїРёСЃРєР° РјРµС‚СЂРёРє
+		Metrics* pmLast;				//РџРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚ СЃРїРёСЃРєР° РјРµС‚СЂРёРє
+		FILE* DebugPrint;				//РЈРєР°Р·Р°С‚РµР»СЊ РЅР° С„Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё РґРµР±Р°РіР°
 
 	public:
 
-		//Деструктор
+		//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 		~Forcastr(void)
 		{
-			//Удаление односвязного списка DataPoint
+			//РЈРґР°Р»РµРЅРёРµ РѕРґРЅРѕСЃРІСЏР·РЅРѕРіРѕ СЃРїРёСЃРєР° DataPoint
 			CleanUp(pdpFirst);
-			//Удаление односвязного списка метрик
+			//РЈРґР°Р»РµРЅРёРµ РѕРґРЅРѕСЃРІСЏР·РЅРѕРіРѕ СЃРїРёСЃРєР° РјРµС‚СЂРёРє
 			CleanUp(pmFirst);
 		}
 
 		void Initialize(void)
 		{
-			//По умолчанию не подсчитано
+			//РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - РЅРµ РїРѕРґСЃС‡РёС‚Р°РЅРѕ
 			bIsForecasted = false;
 
-			//Нет данных
+			//РќРµС‚ РґР°РЅРЅС‹С…
 			pdpFirst = NULL;
 			pdpLast = NULL;
 
-			//Нет метрик
+			//РќРµС‚ РјРµС‚СЂРёРє
 			pmFirst = NULL;
 			pmLast = NULL;
 
 			DebugPrint = NULL;
 
-			//Дефлотное количество шагов
+			//Р”РµС„РѕР»С‚РЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ С€Р°РіРѕРІ
 			SetUp(10, 10, 10);
 		}
 
@@ -123,13 +123,13 @@ namespace Forcastr
 			}
 		}
 
-		//Добавляет точку к исходным данным
+		//Р”РѕР±Р°РІР»СЏРµС‚ С‚РѕС‡РєСѓ Рє РёСЃС…РѕРґРЅС‹Рј РґР°РЅРЅС‹Рј
 		bool AddPoint(const float& fX, const float& fY)
 		{
 			return AddPoint(fX, fY, DP_ORIGINAL);
 		}
 
-		//Производит прогнозирование
+		//РџСЂРѕРёР·РІРѕРґРёС‚ РїСЂРѕРіРЅРѕР·РёСЂРѕРІР°РЅРёРµ
 		void ForecastByEdgeAndSteps(const float& fUpperEdge, const long& uStepsCount)
 		{
 			if(pdpLast && (fUpperEdge > pdpLast->fX) && (uStepsCount > 0))
@@ -141,7 +141,7 @@ namespace Forcastr
 				Forecast(pdpLast->fX + fStepSize * uStepsCount, fStepSize, uStepsCount);
 		}
 
-		//Возвращает значение Y для указанного X по введённым данным
+		//Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ Y РґР»СЏ СѓРєР°Р·Р°РЅРЅРѕРіРѕ X РїРѕ РІРІРµРґС‘РЅРЅС‹Рј РґР°РЅРЅС‹Рј
 		float GetData(const float& fX) const
 		{
 			if(pdpFirst)
@@ -174,7 +174,7 @@ namespace Forcastr
 
 	private:
 
-		//Цепочечное удаление односвязного списка
+		//Р¦РµРїРѕС‡РµС‡РЅРѕРµ СѓРґР°Р»РµРЅРёРµ РѕРґРЅРѕСЃРІСЏР·РЅРѕРіРѕ СЃРїРёСЃРєР°
 		void CleanUp(SLList* pElement)
 		{
 			if(pElement)
@@ -183,16 +183,16 @@ namespace Forcastr
 				SLList* pPrev = NULL;
 				while(true)
 				{
-					//Запоминаем текущий, так как скоро он станет предыдущим
+					//Р—Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РёР№, С‚Р°Рє РєР°Рє СЃРєРѕСЂРѕ РѕРЅ СЃС‚Р°РЅРµС‚ РїСЂРµРґС‹РґСѓС‰РёРј
 					pPrev = pCurrent;
 					if(pCurrent->pNext)
 					{
-						//Есть ещё
+						//Р•СЃС‚СЊ РµС‰Рµ
 						pCurrent = static_cast<SLList*>(pCurrent->pNext);
 					}
 					else
 					{
-						//Последний и есть текущий
+						//РџРѕСЃР»РµРґРЅРёР№ Рё РµСЃС‚СЊ С‚РµРєСѓС‰РёР№
 						if(DebugPrint) fprintf(DebugPrint, "CleanUp: deleting element at %x\n", pCurrent);
 						delete pCurrent;
 						break;
@@ -205,7 +205,7 @@ namespace Forcastr
 				if(DebugPrint) fprintf(DebugPrint, "CleanUp: nothing to delete\n");
 		}
 
-		//Линейная интерполяция/экстраполяция
+		//Р›РёРЅРµР№РЅР°СЏ РёРЅС‚РµСЂРїРѕР»СЏС†РёСЏ/СЌРєСЃС‚СЂР°РїРѕР»СЏС†РёСЏ
 		float Map(const float& fQx, const float& fLX, const float& fLY, const float& fRX, const float& fRY) const
 		{
 			return ( (fQx - fLX) / (fRX - fLX) ) * (fRY - fLY) + fLY;
@@ -213,7 +213,7 @@ namespace Forcastr
 
 		void AddMetric(const float& fLowerCandidateEdge, const float& fHigherCandidateEdge, const float& fDataToProjectionRatio, const float& fLowerProjectionEdge, const float& fHigherProjectionEdge)
 		{
-			//Создаём экземпляр структуры Metrics и заполняем его поля по умолчанию
+			//РЎРѕР·РґР°С‘Рј СЌРєР·РµРјРїР»СЏСЂ СЃС‚СЂСѓРєС‚СѓСЂС‹ Metrics Рё Р·Р°РїРѕР»РЅСЏРµРј РµРіРѕ РїРѕР»СЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 			Metrics* pmNew = new Metrics();
 			pmNew->fLowerCandidateEdge = fLowerCandidateEdge;
 			pmNew->fMiddleCandidateEdge = fLowerCandidateEdge + fDataToProjectionRatio * (fHigherCandidateEdge - fLowerCandidateEdge);
@@ -226,36 +226,36 @@ namespace Forcastr
 			pmNew->fCandidateMean = 0;
 			pmNew->pNext = NULL;
 
-			//Должны сопоставлять коридор кандидата [fLowerCandidateEdge, fMiddleCandidateEdge]
-			//	коридору проекции [fLowerProjectionEdge, fHigherProjectionEdge]
+			//Р”РѕР»Р¶РЅС‹ СЃРѕРїРѕСЃС‚Р°РІР»СЏС‚СЊ РєРѕСЂРёРґРѕСЂ РєР°РЅРґРёРґР°С‚Р° [fLowerCandidateEdge, fMiddleCandidateEdge]
+			//	РєРѕСЂРёРґРѕСЂСѓ РїСЂРѕРµРєС†РёРё [fLowerProjectionEdge, fHigherProjectionEdge]
 			long lStep;
 
-			//Сама метрика (не сам pmNew->fWeight, а то, из чего он будет получен)
+			//РЎР°РјР° РјРµС‚СЂРёРєР° (РЅРµ СЃР°Рј pmNew->fWeight, Р° С‚Рѕ, РёР· С‡РµРіРѕ РѕРЅ Р±СѓРґРµС‚ РїРѕР»СѓС‡РµРЅ)
 			float fMetrics;
 
-			//Считаем размер шагов в соответствующих окнах
+			//РЎС‡РёС‚Р°РµРј СЂР°Р·РјРµСЂ С€Р°РіРѕРІ РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёС… РѕРєРЅР°С…
 			float fCandidateStepSize = (pmNew->fMiddleCandidateEdge - fLowerCandidateEdge) / (float)(lMetricStepsCount);
 			float fProjectionStepSize = (fHigherProjectionEdge - fLowerProjectionEdge) / (float)(lMetricStepsCount);
 
-			//Временные массивы для значений окон кандидата и проекции
-			//	(а то слишком много вызовов GetData)
+			//Р’СЂРµРјРµРЅРЅС‹Рµ РјР°СЃСЃРёРІС‹ РґР»СЏ Р·РЅР°С‡РµРЅРёР№ РѕРєРѕРЅ РєР°РЅРґРёРґР°С‚Р° Рё РїСЂРѕРµРєС†РёРё
+			//	(Р° С‚Рѕ СЃР»РёС€РєРѕРј РјРЅРѕРіРѕ РІС‹Р·РѕРІРѕРІ GetData)
 			float* pfCandidateY = new float[lMetricStepsCount + 1];
 			float* pfProjectionY = new float[lMetricStepsCount + 1];
 
-			//Заполним временные массивы
+			//Р—Р°РїРѕР»РЅРёРј РІСЂРµРјРµРЅРЅС‹Рµ РјР°СЃСЃРёРІС‹
 			for(lStep = 0; lStep <= lMetricStepsCount; lStep++)
 			{
 				pfCandidateY[lStep] = GetData(fLowerCandidateEdge + fCandidateStepSize * (float)(lStep));
 				pfProjectionY[lStep] = GetData(fLowerProjectionEdge + fProjectionStepSize * (float)(lStep));
 			}
 
-			//Вначале тут сумма, потом среднее арифметическое
+			//Р’РЅР°С‡Р°Р»Рµ С‚СѓС‚ СЃСѓРјРјР°, РїРѕС‚РѕРј СЃСЂРµРґРЅРµРµ Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРѕРµ
 			float fCandidateMean = 0.0;
 			float fProjectionMean = 0.0;
 			float fCandidateDisp = 0.0;
 			float fProjectionDisp = 0.0;
 
-			//Считаем матожидание в окнах
+			//РЎС‡РёС‚Р°РµРј РјР°С‚РѕР¶РёРґР°РЅРёРµ РІ РѕРєРЅР°С…
 			for(lStep = 0; lStep <= lMetricStepsCount; lStep++)
 			{
 				fCandidateMean += pfCandidateY[lStep];
@@ -267,7 +267,7 @@ namespace Forcastr
 			pmNew->fCandidateMean = fCandidateMean;
 			pmNew->fProjectionMean = fProjectionMean;
 
-			//Считаем дисперсию в окнах
+			//РЎС‡РёС‚Р°РµРј РґРёСЃРїРµСЂСЃРёСЋ РІ РѕРєРЅР°С…
 			for(lStep = 0; lStep <= lMetricStepsCount; lStep++)
 			{
 				fCandidateDisp += (pfCandidateY[lStep] - fCandidateMean) * (pfCandidateY[lStep] - fCandidateMean);
@@ -276,34 +276,34 @@ namespace Forcastr
 			fCandidateDisp = sqrt(fCandidateDisp / (float)(lMetricStepsCount + 1));
 			fProjectionDisp = sqrt(fProjectionDisp / (float)(lMetricStepsCount + 1));
 
-			//Получили масштаб
+			//РџРѕР»СѓС‡РёР»Рё РјР°СЃС€С‚Р°Р±
 			if(fCandidateDisp > 0)
 				pmNew->fScale = fProjectionDisp / fCandidateDisp;
 			else
 				pmNew->fScale = 1.0;
 
-			//Считаем метрику
+			//РЎС‡РёС‚Р°РµРј РјРµС‚СЂРёРєСѓ
 			fMetrics = 0.0;
 			for(lStep = 0; lStep <= lMetricStepsCount; lStep++)
 			{
-				//Накапливаем погрешность между двумя точками данных
-				//	чем больше fMetrics, тем более непохожи данные
-				//	чем меньше fMetrics, тем более похожи данные
+				//РќР°РєР°РїР»РёРІР°РµРј РїРѕРіСЂРµС€РЅРѕСЃС‚СЊ РјРµР¶РґСѓ РґРІСѓРјСЏ С‚РѕС‡РєР°РјРё РґР°РЅРЅС‹С…
+				//	С‡РµРј Р±РѕР»СЊС€Рµ fMetrics, С‚РµРј Р±РѕР»РµРµ РЅРµРїРѕС…РѕР¶Рё РґР°РЅРЅС‹Рµ
+				//	С‡РµРј РјРµРЅСЊС€Рµ fMetrics, С‚РµРј Р±РѕР»РµРµ РїРѕС…РѕР¶Рё РґР°РЅРЅС‹Рµ
 				fMetrics += fabs(pfProjectionY[lStep] - ((pfCandidateY[lStep] - fCandidateMean) * pmNew->fScale + pmNew->fProjectionMean));
 			}
 
 			fMetrics /= (float)(lMetricStepsCount + 1);
 
-			//Получили весовой коэффициент
-			pmNew->fWeight = exp(-fMetrics * fMetrics);	//для нивелирования влияния несовпавших кандидатов необходимо повышать степень
+			//РџРѕР»СѓС‡РёР»Рё РІРµСЃРѕРІРѕР№ РєРѕСЌС„С„РёС†РёРµРЅС‚
+			pmNew->fWeight = exp(-fMetrics * fMetrics);	//РґР»СЏ РЅРёРІРµР»РёСЂРѕРІР°РЅРёСЏ РІР»РёСЏРЅРёСЏ РЅРµСЃРѕРІРїР°РІС€РёС… РєР°РЅРґРёРґР°С‚РѕРІ РЅРµРѕР±С…РѕРґРёРјРѕ РїРѕРІС‹С€Р°С‚СЊ СЃС‚РµРїРµРЅСЊ
 
 			fprintf(DebugPrint, "AddMetric: Candidate = [%f, %f, %f], Projection = [%f, %f], Candidate = {%f, %f}, Projection = {%f, %f}, Scale = %f, Difference = %f, Weight = %f\n", fLowerCandidateEdge, pmNew->fMiddleCandidateEdge, fHigherCandidateEdge, fLowerProjectionEdge, fHigherProjectionEdge, fCandidateMean, fCandidateDisp, fProjectionMean, fProjectionDisp, pmNew->fScale, fMetrics, pmNew->fWeight);
 
-			//Удаляем временные массивы
+			//РЈРґР°Р»СЏРµРј РІСЂРµРјРµРЅРЅС‹Рµ РјР°СЃСЃРёРІС‹
 			delete [] pfCandidateY;
 			delete [] pfProjectionY;
 
-			//В конце добавим вычисленное в список
+			//Р’ РєРѕРЅС†Рµ РґРѕР±Р°РІРёРј РІС‹С‡РёСЃР»РµРЅРЅРѕРµ РІ СЃРїРёСЃРѕРє
 			if(pmFirst)
 			{
 				pmLast->pNext = pmNew;
@@ -316,30 +316,30 @@ namespace Forcastr
 			}
 		}
 
-		//Производит прогнозирование
+		//РџСЂРѕРёР·РІРѕРґРёС‚ РїСЂРѕРіРЅРѕР·РёСЂРѕРІР°РЅРёРµ
 		void Forecast(const float& fUpperProjectionEdge, const float& fStepSize, const long& uStepsCount)
 		{
 			if(bIsForecasted)
 				return;
 
-			//Запомним минимальное и максимальное X
+			//Р—Р°РїРѕРјРЅРёРј РјРёРЅРёРјР°Р»СЊРЅРѕРµ Рё РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ X
 			float fXMin = pdpFirst->fX;
 			float fXMax = pdpLast->fX;
 
-			//Определяем отступ для минимальных размеров окон
+			//РћРїСЂРµРґРµР»СЏРµРј РѕС‚СЃС‚СѓРї РґР»СЏ РјРёРЅРёРјР°Р»СЊРЅС‹С… СЂР°Р·РјРµСЂРѕРІ РѕРєРѕРЅ
 			float fMargin = fUpperProjectionEdge - fXMax;
 
-			//Границы и размер шагов окна проекции
+			//Р“СЂР°РЅРёС†С‹ Рё СЂР°Р·РјРµСЂ С€Р°РіРѕРІ РѕРєРЅР° РїСЂРѕРµРєС†РёРё
 			float fLowerProjectionEdge;
 			float fLowerProjectionStepSize = (fXMax - fMargin - fXMin) / (float)(lProjectionStepsCount);
 			float fDataToProjectionRatio;
 
-			//Границы и размер шагов окна кандидатов
+			//Р“СЂР°РЅРёС†С‹ Рё СЂР°Р·РјРµСЂ С€Р°РіРѕРІ РѕРєРЅР° РєР°РЅРґРёРґР°С‚РѕРІ
 			float fLowerCandidateEdge;
 			float fCandidateStepSize = (fXMax - fMargin - fXMin) / (float)(lCandidateStepsCount);
 			float fHigherCandidateEdge;
 
-			//Шагающие
+			//РЁР°РіР°СЋС‰РёРµ
 			long lLowerProjectionStep = 0;
 			long lLowerCandidateStep = 0;
 			long lHigherCandidateStep = 0;
@@ -353,7 +353,7 @@ namespace Forcastr
 				fprintf(DebugPrint, "Forecast: Candidate step size = %f, Projection step size = %f\n", fCandidateStepSize, fLowerProjectionStepSize);
 			}
 
-			//Рассчитываем
+			//Р Р°СЃСЃС‡РёС‚С‹РІР°РµРј
 			for(lLowerProjectionStep = 0; lLowerProjectionStep < lProjectionStepsCount; lLowerProjectionStep++)
 			{
 				fLowerProjectionEdge = fXMin + fLowerProjectionStepSize * (float)(lLowerProjectionStep);
@@ -380,7 +380,7 @@ namespace Forcastr
 			//Reuse
 			Metrics* pmCurrent;
 
-			//Нормируем весовые коэффициенты
+			//РќРѕСЂРјРёСЂСѓРµРј РІРµСЃРѕРІС‹Рµ РєРѕСЌС„С„РёС†РёРµРЅС‚С‹
 			if(DebugPrint) fprintf(DebugPrint, "Forecast: Weights: ");
 			if(pmFirst)
 			{
@@ -406,34 +406,34 @@ namespace Forcastr
 			}
 			if(DebugPrint) fprintf(DebugPrint, "\n");
 
-			//Вычисление финального результата
+			//Р’С‹С‡РёСЃР»РµРЅРёРµ С„РёРЅР°Р»СЊРЅРѕРіРѕ СЂРµР·СѓР»СЊС‚Р°С‚Р°
 			if(pmFirst)
 			{
 				float fCashePointX;
 				float fCashePointY;
-				//Проходим по всем точкам, значения в которых надо закешировать
+				//РџСЂРѕС…РѕРґРёРј РїРѕ РІСЃРµРј С‚РѕС‡РєР°Рј, Р·РЅР°С‡РµРЅРёСЏ РІ РєРѕС‚РѕСЂС‹С… РЅР°РґРѕ Р·Р°РєРµС€РёСЂРѕРІР°С‚СЊ
 				for(fCashePointX = fUpperProjectionEdge; fXMax < fCashePointX; fCashePointX -= fStepSize)
 				{
 					fCashePointY = 0.0;
 
-					//Проходим по всем метрикам
+					//РџСЂРѕС…РѕРґРёРј РїРѕ РІСЃРµРј РјРµС‚СЂРёРєР°Рј
 					pmCurrent = pmFirst;
 					while(pmCurrent)
 					{
-						//Считаем пропорцию точки
+						//РЎС‡РёС‚Р°РµРј РїСЂРѕРїРѕСЂС†РёСЋ С‚РѕС‡РєРё
 						float fSamplePointXRatio = (fCashePointX - pmCurrent->fLowerProjectionEdge) / (fUpperProjectionEdge - pmCurrent->fLowerProjectionEdge);
 
-						//Находим соответствующую точку в окне кандидатов
+						//РќР°С…РѕРґРёРј СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ С‚РѕС‡РєСѓ РІ РѕРєРЅРµ РєР°РЅРґРёРґР°С‚РѕРІ
 						float fCandidateSamplePointX = pmCurrent->fLowerCandidateEdge + fSamplePointXRatio * (pmCurrent->fHigherCandidateEdge - pmCurrent->fLowerCandidateEdge);
 
-						//Аккумулируем взвешенное смещённое значение
+						//РђРєРєСѓРјСѓР»РёСЂСѓРµРј РІР·РІРµС€РµРЅРЅРѕРµ СЃРјРµС‰С‘РЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
 						fCashePointY += pmCurrent->fWeight * ((GetData(fCandidateSamplePointX) - pmCurrent->fCandidateMean) * pmCurrent->fScale + pmCurrent->fProjectionMean);
 
 						//
 						pmCurrent = static_cast<Metrics*>(pmCurrent->pNext);
 					}
 
-					//Добавим точку (fCashePointX, fCashePointY) к данным как подсчитанную
+					//Р”РѕР±Р°РІРёРј С‚РѕС‡РєСѓ (fCashePointX, fCashePointY) Рє РґР°РЅРЅС‹Рј РєР°Рє РїРѕРґСЃС‡РёС‚Р°РЅРЅСѓСЋ
 					AddPoint(fCashePointX, fCashePointY, false);
 				}
 			}
@@ -441,7 +441,7 @@ namespace Forcastr
 			bIsForecasted = true;
 		}
 
-		//Оригинальное добавление
+		//РћСЂРёРіРёРЅР°Р»СЊРЅРѕРµ РґРѕР±Р°РІР»РµРЅРёРµ
 		bool AddPoint(const float& fX, const float& fY, const char& bIsOriginal)
 		{
 			if(DebugPrint) fprintf(DebugPrint, "AddPoint: (%f, %f) ", fX, fY);
@@ -451,13 +451,13 @@ namespace Forcastr
 
 			bool bIsResult = false;
 
-			//Уже есть данные?
+			//РЈР¶Рµ РµСЃС‚СЊ РґР°РЅРЅС‹Рµ?
 			if(pdpFirst)
 			{
-				//Создаём новую запись
+				//РЎРѕР·РґР°С‘Рј РЅРѕРІСѓСЋ Р·Р°РїРёСЃСЊ
 				DataPoint* pdpNew = new DataPoint(fX, fY, bIsOriginal);
 
-				//Неявная оптимизация
+				//РќРµСЏРІРЅР°СЏ РѕРїС‚РёРјРёР·Р°С†РёСЏ
 				if(pdpLast)
 				{
 					if(fX > pdpLast->fX)
@@ -465,9 +465,9 @@ namespace Forcastr
 						if(DebugPrint) fprintf(DebugPrint, "after last (%f, %f)", pdpLast->fX, pdpLast->fY);
 
 						bIsResult = true;
-						//Залинковываем с самой крайней правой
+						//Р—Р°Р»РёРЅРєРѕРІС‹РІР°РµРј СЃ СЃР°РјРѕР№ РєСЂР°Р№РЅРµР№ РїСЂР°РІРѕР№
 						pdpLast->pNext = pdpNew;
-						//Так как она самая правая, то последняя теперь она
+						//РўР°Рє РєР°Рє РѕРЅР° СЃР°РјР°СЏ РїСЂР°РІР°СЏ, С‚Рѕ РїРѕСЃР»РµРґРЅСЏСЏ С‚РµРїРµСЂСЊ РѕРЅР°
 						pdpLast = pdpNew;
 					}
 				}
@@ -476,7 +476,7 @@ namespace Forcastr
 
 				while(!bIsResult)
 				{
-					//Сравниваем с текущим (проверка на коллизию)
+					//РЎСЂР°РІРЅРёРІР°РµРј СЃ С‚РµРєСѓС‰РёРј (РїСЂРѕРІРµСЂРєР° РЅР° РєРѕР»Р»РёР·РёСЋ)
 					if(fX == pdpCurrent->fX)
 					{
 						break;
@@ -488,39 +488,39 @@ namespace Forcastr
 							if(DebugPrint) fprintf(DebugPrint, "before first (%f, %f)", pdpFirst->fX, pdpFirst->fY);
 
 							bIsResult = true;
-							//Залинковываем с самой крайней левой
+							//Р—Р°Р»РёРЅРєРѕРІС‹РІР°РµРј СЃ СЃР°РјРѕР№ РєСЂР°Р№РЅРµР№ Р»РµРІРѕР№
 							pdpNew->pNext = pdpCurrent;
 							if(pdpFirst == pdpCurrent)
 							{
-								//Так как она самая левая, то первая теперь она
+								//РўР°Рє РєР°Рє РѕРЅР° СЃР°РјР°СЏ Р»РµРІР°СЏ, С‚Рѕ РїРµСЂРІР°СЏ С‚РµРїРµСЂСЊ РѕРЅР°
 								pdpFirst = pdpNew;
 							}
 							break;
 						}
 						else
 						{
-							//Есть ли кто-то спереди
+							//Р•СЃС‚СЊ Р»Рё РєС‚Рѕ-С‚Рѕ СЃРїРµСЂРµРґРё
 							if(pdpCurrent->pNext)
 							{
-								//Спереди кто-то есть
+								//РЎРїРµСЂРµРґРё РєС‚Рѕ-С‚Рѕ РµСЃС‚СЊ
 								if(fX < static_cast<DataPoint*>(pdpCurrent->pNext)->fX)
 								{
 									if(DebugPrint) fprintf(DebugPrint, "between (%f, %f) and (%f, %f)", pdpCurrent->fX, pdpCurrent->fY, static_cast<DataPoint*>(pdpCurrent->pNext)->fX, static_cast<DataPoint*>(pdpCurrent->pNext)->fY);
 
-									//Вставка между двумя точками данных
+									//Р’СЃС‚Р°РІРєР° РјРµР¶РґСѓ РґРІСѓРјСЏ С‚РѕС‡РєР°РјРё РґР°РЅРЅС‹С…
 									bIsResult = true;
-									//Залинковываем с правым соседом
+									//Р—Р°Р»РёРЅРєРѕРІС‹РІР°РµРј СЃ РїСЂР°РІС‹Рј СЃРѕСЃРµРґРѕРј
 									pdpNew->pNext = pdpCurrent->pNext;
-									//Двухсторонне залинковываем с левым соседом
+									//Р”РІСѓС…СЃС‚РѕСЂРѕРЅРЅРµ Р·Р°Р»РёРЅРєРѕРІС‹РІР°РµРј СЃ Р»РµРІС‹Рј СЃРѕСЃРµРґРѕРј
 									pdpCurrent->pNext = pdpNew;
-									//Последний и первый не меняются
+									//РџРѕСЃР»РµРґРЅРёР№ Рё РїРµСЂРІС‹Р№ РЅРµ РјРµРЅСЏСЋС‚СЃСЏ
 									break;
 								}
 								else
 								{
-									//Попали в ситуацию, когда мы до младшего
+									//РџРѕРїР°Р»Рё РІ СЃРёС‚СѓР°С†РёСЋ, РєРѕРіРґР° РјС‹ РґРѕ РјР»Р°РґС€РµРіРѕ
 									pdpCurrent = static_cast<DataPoint*>(pdpCurrent->pNext);
-									//Повтор...
+									//РџРѕРІС‚РѕСЂ...
 								}
 							}
 						}
@@ -530,7 +530,7 @@ namespace Forcastr
 			}
 			else
 			{
-				//Первые данные
+				//РџРµСЂРІС‹Рµ РґР°РЅРЅС‹Рµ
 				pdpFirst = new DataPoint(fX, fY, bIsOriginal);
 				bIsResult = true;
 				pdpLast = pdpFirst;
